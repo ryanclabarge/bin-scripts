@@ -1,0 +1,8 @@
+#!/bin/bash
+
+POWER=`acpi --ac-adapter | cut -d- -f1 | tail -c 3`
+
+if [[ "$POWER" != "on" ]]
+then
+	system76-power profile battery
+fi

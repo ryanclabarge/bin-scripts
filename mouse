@@ -1,0 +1,11 @@
+#!/bin/bash
+
+mouse=`xinput list | grep "Mouse" | cut -f2 | cut -d= -f2`
+touchpad=`xinput list | grep "Touchpad" | cut -f2 | cut -d= -f2`
+disable=`xinput --list-props $touchpad | grep "Device Enabled" | awk -F"[()]" '{print $2}'`
+profile=`xinput --list-props $mouse | grep "libinput Accel Profile Enabled" | awk -F"[()]" '{print $2}' | head -1`
+accel=`xinput --list-props $mouse | grep "libinput Accel Speed" | awk -F"[()]" '{print $2}' | head -1`
+
+xinput --set-prop $touchpad $disable 0
+xinput --set-prop $mouse $profile 0 1
+xinput --set-prop $mouse $accel -.55
